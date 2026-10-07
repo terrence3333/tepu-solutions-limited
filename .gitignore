@@ -1,0 +1,23 @@
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Dependencies and build outputs
+node_modules/
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+
+# Logs and local tooling
+*.log
+*.local
+.wrangler/
+.dev.vars
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
