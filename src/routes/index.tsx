@@ -11,9 +11,10 @@ import brianPhoto from "@/assets/brian-ngandu.jpeg.asset.json";
 
 const TITLE = "Tepu Solutions Limited — AI Data & BPO from Zambia";
 const DESC =
-  "Zambia-based AI data annotation, African language speech transcription, LLM evaluation, and managed workforce outsourcing for global AI projects.";
+  "Zambia-based AI data annotation, African language services, medical imaging and billing support, software development, and managed workforce outsourcing for global projects.";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: TITLE },
@@ -76,6 +77,24 @@ const CAPS = [
     d: "Consent-based collection of speech, text, and imagery across Zambia and the region, with metadata captured to your spec.",
     items: ["Speech recording campaigns", "Image & video capture", "Survey & form data", "Text elicitation", "Metadata tagging", "Consent & compliance tracking"],
   },
+  {
+    t: "Medical Imaging Data Services",
+    s: "Labeling & review support for clinical imaging datasets",
+    d: "Trained teams prepare and review imaging datasets for radiology and pathology workflows, working to written protocols with strict handling rules for sensitive medical data.",
+    items: ["Image labeling (boxes, polygons, segmentation)", "Lesion and region marking", "Image classification & triage tagging", "Report-to-image alignment review", "DICOM metadata tagging", "De-identification checks", "Second-reader QC sampling", "Dataset quality auditing"],
+  },
+  {
+    t: "Medical Billing & RCM Support",
+    s: "Claim entry, coding review & denial follow-up",
+    d: "Managed back-office teams for healthcare billing operations: registration capture, coding checks, claims support, and denial tracking, reported back to you on a fixed cycle.",
+    items: ["Patient & registration data entry", "Coding & charge entry review", "Claims submission support", "Denial tracking & follow-up", "Payer portal data capture", "Eligibility verification support", "Statement & reconciliation support", "Confidential handling protocols"],
+  },
+  {
+    t: "Software Development",
+    s: "Web, mobile & data tooling built in-house",
+    d: "A Zambia-based engineering team for product builds, internal tools, and data pipelines — from prototype through to production support.",
+    items: ["Web application development", "Mobile app development", "APIs & third-party integrations", "Data pipelines & ETL", "Annotation and QA tooling", "Dashboards & reporting", "Maintenance & support", "Cloud deployment & monitoring"],
+  },
 ];
 
 const STAGES = [
@@ -110,9 +129,9 @@ const PM = [
 
 const LANGS = [
   ["English", "Global & Regional Fluency", "Zambia, Regional & International commerce", "Fluent contributors for transcription, content moderation, dataset creation, and model evaluation."],
-  ["Chichewa (Chewa)", "14M+ Speakers", "Zambia (Eastern, Lusaka), Malawi, Mozambique", "Our primary regional focus with deep contributor networks: speech transcription, dialect localization, and LLM cultural safety audits."],
-  ["Bemba (Chibemba)", "6M+ Speakers", "Zambia (Northern, Luapula, Copperbelt, Lusaka), Southern DRC", "The most widely spoken indigenous language in urban Zambia. Audio transcription, intent classification, and dataset creation."],
-  ["Swahili (Kiswahili)", "100M+ Speakers", "East & Central Africa, cross-border corridors", "Vital for pan-African speech technology. High-volume audio transcription and NLP benchmarks."],
+  ["Chichewa (Chewa)", "Primary Regional Focus", "Zambia (Eastern, Lusaka), Malawi, Mozambique", "Our primary regional focus with deep contributor networks: speech transcription, dialect localization, and LLM cultural safety audits."],
+  ["Bemba (Chibemba)", "Widely Spoken in Zambia", "Zambia (Northern, Luapula, Copperbelt, Lusaka)", "The most widely spoken indigenous language in urban Zambia. Audio transcription, intent classification, and dataset creation."],
+  ["Swahili (Kiswahili)", "East & Central African Corridor", "East & Central Africa, cross-border corridors", "Vital for pan-African speech technology. High-volume audio transcription and NLP benchmarks."],
 ] as const;
 
 const WHY = [
@@ -148,7 +167,7 @@ const TEAM = [
   ["Gideon Musukuma", "Team Lead", "Supervises daily contributor cohorts and ensures delivery deadlines are met."],
 ] as const;
 
-const SERVICES = ["AI Data Annotation", "Audio Transcription & Speech Data", "African Language Services", "AI Evaluation & Human Feedback", "Field & Digital Data Collection", "Other"];
+const SERVICES = ["AI Data Annotation", "Audio Transcription & Speech Data", "African Language Services", "AI Evaluation & Human Feedback", "Field & Digital Data Collection", "Medical Imaging Data Services", "Medical Billing & RCM Support", "Software Development", "Other"];
 const LANG_OPTS = ["English", "Chichewa (Chewa)", "Bemba (Chibemba)", "Swahili (Kiswahili)", "Multilingual", "Other"];
 const MODEL_OPTS = ["Pilot Project", "Project-Based", "Ongoing Production", "Managed Workforce", "Vendor Onboarding"];
 
@@ -172,6 +191,7 @@ function Home() {
   const [tab, setTab] = useState(0);
   const [stage, setStage] = useState(3);
   const [form, setForm] = useState({ service: SERVICES[0]!, language: LANG_OPTS[1]!, model: MODEL_OPTS[0]! });
+  const [other, setOther] = useState({ service: "", language: "" });
   const [menu, setMenu] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [err, setErr] = useState("");
@@ -192,7 +212,7 @@ function Home() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a href="#contact" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Start a Pilot</a>
+            <a href="#contact" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Partner With Tepu Solutions</a>
             <button type="button" aria-label="Toggle menu" aria-expanded={menu} onClick={() => setMenu(!menu)} className="rounded-md border border-border px-3 py-2 text-sm lg:hidden">{menu ? "✕" : "☰"}</button>
           </div>
         </div>
@@ -205,25 +225,56 @@ function Home() {
         )}
       </header>
 
-      <section id="top" className="mx-auto max-w-6xl px-6 py-24">
-        <p className="eyebrow">AI Data & Business Process Outsourcing · BPO Operations</p>
-        <h1 className="mt-5 max-w-3xl text-5xl font-bold leading-[1.05] md:text-7xl">
-          Accurate data work from <span className="text-primary">trained teams</span> and outsourcing.
-        </h1>
-        <p className="mt-6 max-w-2xl text-xl text-muted-foreground">
-          Tepu Solutions connects international AI labs, research organizations, and technology companies with trained, managed teams for data annotation, audio transcription, dataset collection, and RLHF evaluation.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#contact" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90">Start a Pilot Project →</a>
-          <a href="#capabilities" className="rounded-md border border-border bg-card px-6 py-3 font-semibold hover:bg-secondary">Explore Capabilities</a>
+      <section id="top" className="annotation-hero relative isolate overflow-hidden border-b border-border">
+        <div className="annotation-hero__art" aria-hidden="true">
+          <svg viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid slice" role="presentation">
+            <g className="annotation-hero__grid">
+              <path d="M0 80H1000M0 160H1000M0 240H1000M0 320H1000M0 400H1000M0 480H1000M0 560H1000" />
+              <path d="M80 0V640M160 0V640M240 0V640M320 0V640M400 0V640M480 0V640M560 0V640M640 0V640M720 0V640M800 0V640M880 0V640M960 0V640" />
+            </g>
+            <path className="annotation-hero__link" d="M350 300C470 300 430 210 565 210S710 290 845 290M450 450C540 450 560 385 645 385S760 440 900 440M700 180C760 180 760 120 850 120" />
+            <rect className="annotation-hero__sample" x="520" y="145" width="350" height="195" rx="12" />
+            <path className="annotation-hero__sample-line" d="M550 185H800M550 215H770M550 300H730" />
+            <rect className="annotation-hero__highlight" x="550" y="232" width="99" height="28" rx="4" />
+            <rect className="annotation-hero__highlight annotation-hero__highlight--warm" x="690" y="232" width="127" height="28" rx="4" />
+            <text className="annotation-hero__copy" x="550" y="253">Lusaka</text>
+            <text className="annotation-hero__copy" x="698" y="253">Friday</text>
+            <rect className="annotation-hero__tag" x="550" y="160" width="78" height="22" rx="5" />
+            <text className="annotation-hero__label" x="560" y="175">GPE · 0.99</text>
+            <rect className="annotation-hero__tag annotation-hero__tag--warm" x="690" y="160" width="90" height="22" rx="5" />
+            <text className="annotation-hero__label annotation-hero__label--warm" x="700" y="175">DATE · 0.97</text>
+            <rect className="annotation-hero__frame" x="650" y="385" width="235" height="126" rx="10" />
+            <rect className="annotation-hero__inner-frame" x="675" y="408" width="83" height="75" rx="7" />
+            <circle className="annotation-hero__node" cx="450" cy="450" r="5" />
+            <circle className="annotation-hero__node annotation-hero__node--delay" cx="645" cy="385" r="5" />
+            <circle className="annotation-hero__node annotation-hero__node--warm" cx="845" cy="290" r="5" />
+            <text className="annotation-hero__label" x="670" y="530">IMAGE LABELING · OBJECT 04</text>
+            <path className="annotation-hero__wave" d="M470 555h22l8-18 13 40 12-28 12 12h22l9-25 13 44 12-33 12 8h25l8-17 12 32 12-22 12 7h35" />
+            <text className="annotation-hero__label annotation-hero__label--warm" x="470" y="590">SPEECH · 00:04.28</text>
+          </svg>
         </div>
-        <div className="mt-14 grid max-w-3xl gap-8 border-t border-border pt-10 sm:grid-cols-3">
-          {[["English +", "Chichewa, Bemba & Swahili"], ["9-Stage", "Integrated QA Pipeline"], ["Pilot → Scale", "Flexible Engagement Models"]].map(([a, b], i) => (
-            <div key={a}>
-              <div className={`font-mono text-3xl font-semibold ${i === 1 ? "text-primary" : ""}`}>{a}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{b}</div>
+        <div className="annotation-hero__content relative mx-auto max-w-6xl px-6 py-24 md:py-28">
+          <div className="max-w-2xl">
+            <p className="eyebrow">AI Data & Business Process Outsourcing · BPO Operations</p>
+            <h1 className="mt-5 max-w-2xl text-5xl font-bold leading-[1.05] md:text-7xl">
+              Accurate data work from <span className="text-primary">trained teams</span> and outsourcing.
+            </h1>
+            <p className="mt-6 max-w-xl text-xl text-muted-foreground">
+              Tepu Solutions connects international AI labs, research organizations, and technology companies with trained, managed teams for data annotation, AI evaluation, medical imaging and billing support, dataset collection, and software development.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#contact" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90">Partner With Tepu Solutions →</a>
+              <a href="#capabilities" className="rounded-md border border-border bg-card px-6 py-3 font-semibold hover:bg-secondary">Explore Capabilities</a>
             </div>
-          ))}
+          </div>
+          <div className="mt-14 grid max-w-3xl gap-8 border-t border-border pt-10 sm:grid-cols-3">
+            {[["English +", "Chichewa, Bemba & Swahili"], ["9-Stage", "Integrated QA Pipeline"], ["Pilot → Scale", "Flexible Engagement Models"]].map(([a, b], i) => (
+              <div key={a}>
+                <div className={`font-mono text-3xl font-semibold ${i === 1 ? "text-primary" : ""}`}>{a}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{b}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -258,7 +309,7 @@ function Home() {
         </div>
       </Section>
 
-      <Section alt id="capabilities" eyebrow="Capabilities · Human-in-the-Loop Infrastructure" title="Our Core Data & BPO Capabilities" intro="From speech processing and diarization to high-precision entity labeling and model evaluation, we build and manage trained teams tailored to your requirements.">
+      <Section alt id="capabilities" eyebrow="Capabilities · Human-in-the-Loop Infrastructure" title="Our Core Data & BPO Capabilities" intro="From data annotation and speech processing to medical imaging support, revenue-cycle services, and software builds, we form and manage trained teams tailored to your requirements.">
         <div className="grid gap-6 lg:grid-cols-[1fr_1.6fr]">
           <div className="space-y-2">
             {CAPS.map((c, i) => (
@@ -279,7 +330,7 @@ function Home() {
                 <li key={it} className="flex gap-2 text-sm"><span className="text-primary">▸</span>{it}</li>
               ))}
             </ul>
-            <a href="#contact" className="mt-8 inline-block rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">Request {CAPS[cap]!.t} Pilot</a>
+            <a href="#contact" className="mt-8 inline-block rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">Partner With Tepu Solutions</a>
           </div>
         </div>
       </Section>
@@ -369,7 +420,7 @@ function Home() {
         </div>
       </Section>
 
-      <Section eyebrow="Engagement Models · Flexible Collaboration" title="Tailored Engagement Models for Global Organizations" intro="We support vendor onboarding, supplier qualification, pilot benchmarks, and long-term outsourcing.">
+      <Section eyebrow="Engagement Models · Flexible Collaboration" title="Tailored Engagement Models for Global Organizations" intro="Whether you are adding us to your vendor list, completing supplier qualification, or planning long-term outsourcing, we start with a small scoped assignment and scale only once you are satisfied with the quality.">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {MODELS.map(([t, s, d, b], i) => (
             <div key={t} className="panel flex flex-col p-6">
@@ -432,7 +483,7 @@ function Home() {
         </div>
       </Section>
 
-      <Section id="contact" eyebrow="Start an Engagement · Contact Leadership" title="Partner With Tepu Solutions" intro="Tell us about your project, target language, and expected volume. We'll respond with a pilot proposal, calibration plan, and SLA timeline.">
+      <Section id="contact" eyebrow="Start an Engagement · Contact Leadership" title="Partner With Tepu Solutions" intro="Tell us about your project and the volume you expect. We'll respond with a proposal, a calibration plan, and a delivery timeline.">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
           <div className="space-y-4">
             {[["Email", EMAIL, `mailto:${EMAIL}`], ["Phone", "+260 979 899 485", "tel:+260979899485"], ["Base", "Zambia | Serving Global AI & Data Projects", ""]].map(([l, v, h]) => (
@@ -446,9 +497,11 @@ function Home() {
               if (status === "sending") return;
               const el = e.currentTarget;
               const f = new FormData(el);
+              const service = form.service === "Other" && other.service.trim() ? `Other: ${other.service.trim()}`.slice(0, 100) : form.service;
+              const language = form.language === "Other" && other.language.trim() ? `Other: ${other.language.trim()}`.slice(0, 100) : form.language;
               const parsed = inquirySchema.safeParse({
                 name: f.get("name") ?? "", company: f.get("company") ?? "", email: f.get("email") ?? "",
-                message: f.get("message") ?? "", ...form,
+                message: f.get("message") ?? "", service, language, model: form.model,
               });
               if (!parsed.success) { setStatus("error"); setErr(parsed.error.issues[0]?.message ?? "Please check the form."); return; }
               setStatus("sending"); setErr("");
@@ -466,6 +519,18 @@ function Home() {
             <div className="sm:col-span-2"><Field label="Work email *" name="email" type="email" required maxLength={255} /></div>
             <Picker label="Service area" opts={SERVICES} v={form.service} on={(service) => setForm({ ...form, service })} select />
             <Picker label="Language focus" opts={LANG_OPTS} v={form.language} on={(language) => setForm({ ...form, language })} select />
+            {form.service === "Other" && (
+              <label className="block">
+                <span className="eyebrow">Which service do you need? *</span>
+                <input value={other.service} onChange={(e) => setOther({ ...other, service: e.target.value })} maxLength={200} required placeholder="Tell us what you need" className="mt-2 w-full rounded-md border border-input bg-background p-3 outline-none focus:border-primary" />
+              </label>
+            )}
+            {form.language === "Other" && (
+              <label className="block">
+                <span className="eyebrow">Which languages do you need? *</span>
+                <input value={other.language} onChange={(e) => setOther({ ...other, language: e.target.value })} maxLength={200} required placeholder="Tell us the languages" className="mt-2 w-full rounded-md border border-input bg-background p-3 outline-none focus:border-primary" />
+              </label>
+            )}
             <div className="sm:col-span-2"><Picker label="Engagement model" opts={MODEL_OPTS} v={form.model} on={(model) => setForm({ ...form, model })} select /></div>
             <label className="sm:col-span-2">
               <span className="eyebrow">Project requirements / data scope *</span>
